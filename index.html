@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thermal Service | Air Conditioning & Heating | Pasadena, TX</title>
+    <meta name="description" content="Local air-conditioning and heating service in Pasadena, TX. Get help with system problems, repairs, and new AC installations, with clear explanations of the work your system needs.">
+    
+    <!-- Preconnect for Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Google Fonts: Barlow Condensed & Source Sans 3 -->
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons for crisp, technical iconography -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        mineral: '#203B3A',
+                        charcoal: '#202928',
+                        parchment: '#F4F0E7',
+                        rust: '#CE653E',
+                        sage: '#D6E1D8',
+                        gray: '#8FA6A0',
+                    },
+                    fontFamily: {
+                        barlow: ['"Barlow Condensed"', 'sans-serif'],
+                        sans: ['"Source Sans 3"', 'sans-serif'],
+                    },
+                    transitionTimingFunction: {
+                        'ease-out-expo': 'cubic-bezier(0.19, 1, 0.22, 1)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS for specific component states and animations -->
+    <style>
+        body {
+            background-color: #F4F0E7; /* Parchment */
+            color: #202928; /* Charcoal */
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #CE653E;
+            transition: width 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* FAQ Accordion Transitions */
+        .faq-answer {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.3s ease-out;
+        }
+        .faq-answer > div {
+            overflow: hidden;
+        }
+        details[open] .faq-answer {
+            grid-template-rows: 1fr;
+        }
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+
+        /* Popup animation classes */
+        .popup-hidden {
+            transform: translateY(150%) scale(0.95);
+            opacity: 0;
+            pointer-events: none;
+        }
+        .popup-visible {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Custom image masking for organic technical feel */
+        .img-tech-clip {
+            clip-path: polygon(0 0, 100% 0, 100% 95%, 95% 100%, 0 100%);
+        }
+        
+        /* Focus states for accessibility */
+        *:focus-visible {
+            outline: 2px solid #CE653E;
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body class="font-sans text-charcoal bg-parchment flex flex-col min-h-screen">
+
+    <header class="sticky top-0 z-50 bg-parchment/95 backdrop-blur-md border-b border-gray/20 transition-all duration-300" id="main-header">
+        <div class="max-w-[1200px] mx-auto px-4 md:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo -->
+            <a href="#" class="flex items-center group" aria-label="Thermal Service Home">
+                <div class="h-10 w-[3px] bg-rust mr-3 transition-transform duration-300 group-hover:scale-y-110"></div>
+                <div class="flex flex-col justify-center">
+                    <span class="font-barlow font-bold text-2xl md:text-3xl leading-none text-mineral tracking-wide uppercase">Thermal</span>
+                    <div class="flex items-center gap-1">
+                        <span class="font-sans text-[10px] md:text-xs tracking-[0.2em] text-gray uppercase font-semibold">Service</span>
+                        <div class="h-px w-4 bg-gray/50"></div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden lg:flex items-center gap-8 font-sans text-sm font-semibold tracking-wide text-mineral">
+                <a href="#services" class="nav-link hover:text-rust transition-colors">AC Services</a>
+                <a href="#heating" class="nav-link hover:text-rust transition-colors">Heating</a>
+                <a href="#installation" class="nav-link hover:text-rust transition-colors">Installation</a>
+                <a href="#brand" class="nav-link hover:text-rust transition-colors">About</a>
+                <a href="#contact" class="nav-link hover:text-rust transition-colors">Contact</a>
+            </nav>
+
+            <!-- CTA & Mobile Toggle -->
+            <div class="flex items-center gap-4">
+                <a href="tel:+12819910577" class="hidden md:flex items-center gap-2 bg-rust hover:bg-[#B35532] text-white px-5 py-2.5 rounded-sm font-sans font-semibold text-sm transition-colors shadow-sm" onclick="markConverted()">
+                    <i class="ph ph-phone text-lg"></i>
+                    (281) 991-0577
+                </a>
+                <a href="tel:+12819910577" class="md:hidden flex items-center justify-center bg-rust text-white w-10 h-10 rounded-sm shadow-sm" aria-label="Call Now" onclick="markConverted()">
+                    <i class="ph ph-phone text-xl"></i>
+                </a>
+                <button id="mobile-menu-btn" class="lg:hidden text-mineral p-2 focus:outline-none" aria-label="Toggle Menu">
+                    <i class="ph ph-list text-3xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-mineral border-t border-white/10 absolute w-full left-0 top-20 shadow-xl">
+            <nav class="flex flex-col px-4 py-6 font-barlow text-xl tracking-wide text-parchment">
+                <a href="#services" class="py-3 border-b border-white/10 mobile-link">Air Conditioning Repair</a>
+                <a href="#heating" class="py-3 border-b border-white/10 mobile-link">Heating Service</a>
+                <a href="#installation" class="py-3 border-b border-white/10 mobile-link">Installation</a>
+                <a href="#brand" class="py-3 border-b border-white/10 mobile-link">Our Approach</a>
+                <a href="#contact" class="py-3 mobile-link">Contact & Location</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- SECTION A: HERO -->
+        <section class="relative pt-12 pb-20 md:pt-24 md:pb-32 overflow-hidden bg-parchment">
+            <div class="max-w-[1200px] mx-auto px-4 md:px-8 grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-8 items-center">
+                
+                <!-- Hero Content -->
+                <div class="relative z-10 animate-[fadeIn_0.6s_ease-out]">
+                    <div class="flex items-center gap-2 mb-6">
+                        <i class="ph-fill ph-map-pin text-rust"></i>
+                        <span class="font-sans text-sm font-bold tracking-[0.15em] text-gray uppercase">Pasadena, Texas</span>
+                    </div>
+                    
+                    <h1 class="font-barlow font-bold text-5xl md:text-6xl lg:text-7xl leading-[1.05] text-mineral mb-6 uppercase">
+                        When the A/C stops keeping up, <span class="text-rust">get a straight answer.</span>
+                    </h1>
+                    
+                    <p class="font-sans text-lg md:text-xl text-charcoal/80 mb-10 max-w-lg leading-relaxed">
+                        Local air-conditioning and heating service. Get help with system problems, repairs, and new AC installations, with clear explanations of the work your system needs.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="tel:+12819910577" class="inline-flex justify-center items-center gap-2 bg-rust hover:bg-[#B35532] text-white px-8 py-4 rounded-sm font-sans font-semibold text-lg transition-all shadow-md hover:shadow-lg" onclick="markConverted()">
+                            Call Thermal Service
+                        </a>
+                        <a href="#contact" class="inline-flex justify-center items-center gap-2 bg-transparent border-2 border-mineral text-mineral hover:bg-mineral hover:text-white px-8 py-4 rounded-sm font-sans font-semibold text-lg transition-all">
+                            Request Service
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Image Composition -->
+                <div class="relative h-[400px] md:h-[600px] w-full animate-[slideUp_0.8s_ease-out]">
+                    <!-- Background aesthetic block -->
+                    <div class="absolute top-8 left-8 right-0 bottom-0 bg-mineral/5 rounded-sm"></div>
+                    <!-- Temperature scale detail line -->
+                    <div class="absolute -left-4 top-1/4 bottom-1/4 w-px bg-rust/30 flex flex-col justify-between py-4 z-20 hidden md:flex">
+                        <div class="w-2 h-px bg-rust/50 -translate-x-1/2"></div>
+                        <div class="w-3 h-px bg-rust -translate-x-1/2"></div>
+                        <div class="w-2 h-px bg-rust/50 -translate-x-1/2"></div>
+                        <div class="w-2 h-px bg-rust/50 -translate-x-1/2"></div>
+                        <div class="w-3 h-px bg-rust -translate-x-1/2"></div>
+                    </div>
+                    <!-- Main Image (Using an appropriate realistic stock placeholder for a condenser) -->
+                    <img src="https://raw.githubusercontent.com/CreativeTugsDotCom/gy/refs/heads/main/Screenshot%202026-10-14%20033158.png" 
+                         alt="Thermal Service Work Showcase" 
+                         class="absolute inset-0 w-full h-full object-cover rounded-sm shadow-xl img-tech-clip z-10 relative">
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION B: SERVICE BAND -->
+        <section class="bg-mineral py-6 border-b-4 border-rust" id="services">
+            <div class="max-w-[1200px] mx-auto px-4 md:px-8">
+                <div class="flex flex-wrap justify-center md:justify-between items-center gap-6 md:gap-4 font-sans text-sm md:text-base font-semibold text-parchment/90">
+                    <a href="#ac-repair" class="flex items-center gap-2 hover:text-white transition-colors group">
+                        <i class="ph ph-wrench text-rust group-hover:scale-110 transition-transform"></i>
+                        AC Repair
+                    </a>
+                    <span class="hidden md:block text-gray/40">/</span>
+                    <a href="#heating" class="flex items-center gap-2 hover:text-white transition-colors group">
+                        <i class="ph ph-fire text-rust group-hover:scale-110 transition-transform"></i>
+                        Heating Repair
+                    </a>
+                    <span class="hidden md:block text-gray/40">/</span>
+                    <a href="#installation" class="flex items-center gap-2 hover:text-white transition-colors group">
+                        <i class="ph ph-fan text-rust group-hover:scale-110 transition-transform"></i>
+                        AC Installation
+                    </a>
+                    <span class="hidden md:block text-gray/40">/</span>
+                    <a href="#maintenance" class="flex items-center gap-2 hover:text-white transition-colors group">
+                        <i class="ph ph-stethoscope text-rust group-hover:scale-110 transition-transform"></i>
+                        Maintenance
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION C: AC REPAIR -->
+        <section id="ac-repair" class="py-20 md:py-32 bg-white">
+            <div class="max-w-[1200px] mx-auto px-4 md:px-8 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <div class="order-2 lg:order-1 relative">
+                    <div class="aspect-[4/3] relative">
+                        <div class="absolute -inset-4 bg-sage/30 transform -rotate-2 rounded-sm"></div>
+                        <img src="https://raw.githubusercontent.com/CreativeTugsDotCom/gy/refs/heads/main/Screenshot%202026-10-14%20033136.png" 
+                             alt="Technician inspecting an air conditioning component" 
+                             class="absolute inset-0 w-full h-full object-cover rounded-sm shadow-lg z-10">
+                    </div>
+                </div>
+                <div class="order-1 lg:order-2">
+                    <div class="inline-block px-3 py-1 bg-sage/50 text-mineral font-sans text-xs font-bold tracking-widest uppercase mb-6 rounded-sm">Cooling Services</div>
+                    <h2 class="font-barlow font-bold text-4xl md:text-5xl text-mineral mb-6 uppercase leading-tight">Find the problem.<br>Understand the fix.</h2>
+                    <div class="space-y-4 font-sans text-charcoal/80 text-lg leading-relaxed mb-8">
+                        <p>When an air conditioner stops cooling properly or completely fails in the Texas heat, the priority is identifying exactly what went wrong.</p>
+                        <p>A service visit starts by listening to the problem you are experiencing, thoroughly inspecting the appropriate components, and giving you a clear explanation of what was found.</p>
+                        <p>Whether it's a failing capacitor, a refrigerant issue, or a blower motor problem, you will understand the recommended repair options before any work begins.</p>
+                    </div>
+                    <a href="tel:+12819910577" class="inline-flex items-center gap-2 text-rust font-sans font-bold text-lg hover:text-[#B35532] transition-colors group" onclick="markConverted()">
+                        Call About an AC Problem
+                        <i class="ph-bold ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION D: HEATING -->
+        <section id="heating" class="py-20 md:py-32 bg-sage/20 border-y border-sage/50">
+            <div class="max-w-[1200px] mx-auto px-4 md:px-8 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <div>
+                    <div class="inline-block px-3 py-1 bg-mineral text-parchment font-sans text-xs font-bold tracking-widest uppercase mb-6 rounded-sm">Heating Services</div>
+                    <h2 class="font-barlow font-bold text-4xl md:text-5xl text-mineral mb-6 uppercase leading-tight">Comfort matters when the temperature drops, too.</h2>
+                    <div class="space-y-4 font-sans text-charcoal/80 text-lg leading-relaxed mb-8">
+                        <p>Gulf Coast winters may be short, but a reliable heating system is necessary when cold fronts arrive.</p>
+                        <p>If your heater is not producing warm air, running continuously, or making unusual noises, we provide straightforward troubleshooting and repair.</p>
+                        <p>We approach heating service with the same commitment to clear communication: identify the issue, explain the required components, and present the appropriate repair to restore comfortable operation safely.</p>
+                    </div>
+                    <a href="#contact" class="inline-flex items-center gap-2 text-rust font-sans font-bold text-lg hover:text-[#B35532] transition-colors group">
+                        Ask About Heating Service
+                        <i class="ph-bold ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+                <div class="relative">
+                    <div class="aspect-[4/3] relative">
+                        <div class="absolute inset-4 bg-mineral/10 transform rotate-2 rounded-sm"></div>
+                        <img src="https://raw.githubusercontent.com/CreativeTugsDotCom/gy/refs/heads/main/Screenshot%202026-10-14%20030524.png" 
+                             alt="Indoor residential heating and ductwork assessment" 
+                             class="absolute inset-0 w-full h-full object-cover rounded-sm shadow-lg z-10">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION E: INSTALLATION -->
+        <section id="installation" class="py-20 md:py-32 bg-white">
+            <div class="max-w-[1200px] mx-auto px-4 md:px-8 grid lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-20 items-center">
+                <div class="order-2 lg:order-1">
+                    <img src="https://raw.githubusercontent.com/CreativeTugsDotCom/gy/refs/heads/main/Screenshot%202026-10-14%20033057.png" 
+                         alt="New air conditioning equipment installation base" 
+                         class="w-full h-auto object-cover rounded-sm shadow-md border-b-4 border-rust">
+                </div>
+                <div class="order-1 lg:order-2">
+                    <div class="inline-block px-3 py-1 bg-sage/50 text-mineral font-sans text-xs font-bold tracking-widest uppercase mb-6 rounded-sm">System Replacement</div>
+                    <h2 class="font-barlow font-bold text-4xl md:text-5xl text-mineral mb-6 uppercase leading-tight">When replacement makes sense, understand your options.</h2>
+                    <div class="space-y-4 font-sans text-charcoal/80 text-lg leading-relaxed mb-8">
+                        <p>A new AC installation is a significant decision for any homeowner. It shouldn't be an automatic answer to every breakdown, but when old equipment becomes unreliable or inefficient, replacement is often the most practical long-term step.</p>
+                        <p>We treat installation as a carefully considered service. The appropriate system depends entirely on your property's specifics and your cooling needs.</p>
+                        <p>We will evaluate your current setup, discuss equipment options clearly without high-pressure sales tactics, and ensure the final installation meets rigorous technical standards for proper clearances and tidy operation.</p>
+                    </div>
+                    <a href="#contact" class="inline-flex items-center gap-2 text-rust font-sans font-bold text-lg hover:text-[#B35532] transition-colors group">
+                        Discuss a New AC System
+                        <i class="ph-bold ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION F: MAINTENANCE -->
+        <section id="maintenance" class="py-20 bg-parchment border-t border-gray/20">
+            <div class="max-w-[800px] mx-auto px-4 text-center">
+                <i class="ph-light ph-magnifying-glass text-5xl text-mineral mb-6"></i>
+                <h2 class="font-barlow font-bold text-3xl md:text-4xl text-mineral mb-6 uppercase">Small problems deserve a proper diagnosis.</h2>
+                <p class="font-sans text-lg text-charcoal/80 mb-8">
+                    Checking system condition early can identify potential issues before they cause a complete failure. Contact us if you notice unusual system performance, strange noises, or simply want a professional assessment of your existing equipment's condition.
+                </p>
+                <a href="#contact" class="inline-flex items-center gap-2 text-rust font-sans font-bold hover:text-[#B35532] transition-colors group">
+                    Ask About Maintenance
+                    <i class="ph-bold ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- SECTION G: BRAND DIFFERENCE -->
+        <section id="brand" class="bg-mineral text-parchment py-24 lg:py-32 relative overflow-hidden">
+            <!-- Subtle background texture line -->
+            <div class="absolute top-0 right-[15%] w-px h-full bg-white/5"></div>
+            
+            <div class="max-w-[1200px] mx-auto px-4 md:px-8 grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="font-barlow font-bold text-4xl md:text-5xl lg:text-6xl uppercase leading-[1.1] mb-8 text-white">
+                        The job is not just to fix the system.<br>
+                        <span class="text-rust">It is to help you understand it.</span>
+                    </h2>
+                    <p class="font-sans text-xl text-sage mb-12 max-w-md">
+                        When you call Thermal Service, you get a straight answer. We operate on three simple principles for every service call:
+                    </p>
+                    
+                    <div class="space-y-8 font-sans">
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-rust/20 flex items-center justify-center text-rust font-bold">1</div>
+                            <div>
+                                <h3 class="text-white font-bold text-lg mb-1">Explain the problem.</h3>
+                                <p class="text-sage text-base">We help you understand exactly what we found during the inspection and what it means for your home's comfort.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-rust/20 flex items-center justify-center text-rust font-bold">2</div>
+                            <div>
+                                <h3 class="text-white font-bold text-lg mb-1">Discuss practical options.</h3>
+                                <p class="text-sage text-base">You receive a clear explanation of the next steps and appropriate repair options before we proceed with any work.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-rust/20 flex items-center justify-center text-rust font-bold">3</div>
+                            <div>
+                                <h3 class="text-white font-bold text-lg mb-1">Respect the customer.</h3>
+                                <p class="text-sage text-base">We keep communication professional, treat your property carefully, and ensure the service experience is straightforward.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative h-[500px] lg:h-[650px] w-full">
+                    <img src="https://raw.githubusercontent.com/CreativeTugsDotCom/gy/refs/heads/main/Screenshot%202026-10-14%20032146.png" 
+                         alt="Technical HVAC assessment tools" 
+                         class="absolute inset-0 w-full h-full object-cover img-tech-clip grayscale contrast-125 brightness-75">
+                    <div class="absolute inset-0 bg-mineral/30 mix-blend-multiply"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION H: TRUST -->
+        <section class="py-20 bg-white text-center">
+            <div class="max-w-[800px] mx-auto px-4">
+                <i class="ph-fill ph-quotes text-4xl text-gray/40 mb-6"></i>
+                <h2 class="font-barlow font-bold text-3xl md:text-4xl text-mineral uppercase mb-4">Known for clear explanations and fair treatment.</h2>
+                <p class="font-sans text-lg text-charcoal/80 mb-0">
+                    Our focus is on building longstanding relationships with Pasadena homeowners through prompt attendance, practical service, and honest communication about equipment needs.
+                </p>
+            </div>
+        </section>
+
+        <!-- SECTION I: RESIDENTIAL / COMMERCIAL -->
+        <section class="py-12 bg-sage/30 border-t border-b border-gray/20">
+            <div class="max-w-[1200px] mx-auto px-4 md:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm text-mineral">
+                        <i class="ph ph-house text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-sans font-bold text-mineral text-lg">Residential Specialist</h3>
+                        <p class="font-sans text-sm text-charcoal/70">Primary focus on local homeowners.</p>
+                    </div>
+                </div>
+                <div class="hidden md:block w-px h-12 bg-gray/30"></div>
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-transparent border border-mineral/20 rounded-full flex items-center justify-center text-mineral">
+                        <i class="ph ph-buildings text-2xl"></i>
+                    </div>
+                    <div class="max-w-xs">
+                        <p class="font-sans text-sm text-charcoal/70 leading-tight">
+                            <strong>Have a small commercial HVAC project?</strong><br>
+                            Contact us to confirm if your system falls within our service offering.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION J & K: AREA & FAQS -->
+        <section class="py-20 md:py-32 bg-parchment">
+            <div class="max-w-[1200px] mx-auto px-4 md:px-8 grid lg:grid-cols-[1fr_1.5fr] gap-16">
+                
+                <!-- Location -->
+                <div>
+                    <h2 class="font-barlow font-bold text-3xl md:text-4xl text-mineral mb-6 uppercase">Service Location</h2>
+                    <div class="bg-white p-6 md:p-8 rounded-sm shadow-sm border-t-4 border-rust mb-6">
+                        <h3 class="font-barlow font-bold text-2xl text-mineral mb-2 uppercase">Thermal Service</h3>
+                        <p class="font-sans text-charcoal/80 mb-6 flex items-start gap-2">
+                            <i class="ph-fill ph-map-pin text-rust mt-1"></i>
+                            2707 Preston Ave<br>Pasadena, TX 77503
+                        </p>
+                        <a href="https://www.google.com/maps/place/Thermal+Service/@29.6681194,-95.1768459,15.75z/data=!4m6!3m5!1s0x864098919d255555:0xb053001f6263b39a!8m2!3d29.6716837!4d-95.1719987" 
+                           target="_blank" rel="noopener noreferrer" 
+                           class="inline-flex items-center justify-center w-full bg-mineral hover:bg-charcoal text-white py-3 font-sans font-semibold text-sm transition-colors rounded-sm">
+                            View on Google Maps
+                        </a>
+                    </div>
+                    <p class="font-sans text-sm text-charcoal/70">
+                        Based in Pasadena, TX. If you live in a nearby community, please contact us to confirm service availability in your area.
+                    </p>
+                </div>
+
+                <!-- FAQs -->
+                <div>
+                    <h2 class="font-barlow font-bold text-3xl md:text-4xl text-mineral mb-8 uppercase">Common Questions</h2>
+                    <div class="space-y-4 font-sans">
+                        
+                        <details class="group bg-white rounded-sm shadow-sm border border-gray/20">
+                            <summary class="flex justify-between items-center font-bold cursor-pointer list-none p-5 text-mineral">
+                                <span>What types of HVAC problems can I call about?</span>
+                                <span class="transition group-open:rotate-180">
+                                    <i class="ph ph-caret-down"></i>
+                                </span>
+                            </summary>
+                            <div class="faq-answer text-charcoal/80">
+                                <div class="px-5 pb-5">
+                                    You can contact us if your AC is not cooling, your heater isn't working, the system is making unusual noises, or if you need a professional assessment of your current equipment.
+                                </div>
+                            </div>
+                        </details>
+
+                        <details class="group bg-white rounded-sm shadow-sm border border-gray/20">
+                            <summary class="flex justify-between items-center font-bold cursor-pointer list-none p-5 text-mineral">
+                                <span>Does Thermal Service repair air-conditioning systems?</span>
+                                <span class="transition group-open:rotate-180">
+                                    <i class="ph ph-caret-down"></i>
+                                </span>
+                            </summary>
+                            <div class="faq-answer text-charcoal/80">
+                                <div class="px-5 pb-5">
+                                    Yes. Troubleshooting and repairing residential air-conditioning systems is a core service. We focus on identifying the specific issue and explaining the necessary fix.
+                                </div>
+                            </div>
+                        </details>
+
+                        <details class="group bg-white rounded-sm shadow-sm border border-gray/20">
+                            <summary class="flex justify-between items-center font-bold cursor-pointer list-none p-5 text-mineral">
+                                <span>Can I ask about a new AC installation or replacement?</span>
+                                <span class="transition group-open:rotate-180">
+                                    <i class="ph ph-caret-down"></i>
+                                </span>
+                            </summary>
+                            <div class="faq-answer text-charcoal/80">
+                                <div class="px-5 pb-5">
+                                    Absolutely. If your system is old or a repair is not cost-effective, we can discuss appropriate replacement options tailored to your home without high-pressure sales.
+                                </div>
+                            </div>
+                        </details>
+
+                        <details class="group bg-white rounded-sm shadow-sm border border-gray/20">
+                            <summary class="flex justify-between items-center font-bold cursor-pointer list-none p-5 text-mineral">
+                                <span>Does Thermal Service handle commercial HVAC?</span>
+                                <span class="transition group-open:rotate-180">
+                                    <i class="ph ph-caret-down"></i>
+                                </span>
+                            </summary>
+                            <div class="faq-answer text-charcoal/80">
+                                <div class="px-5 pb-5">
+                                    Our primary focus is residential service. If you have a small commercial property, please call us to discuss the equipment type and confirm if the project fits our capabilities.
+                                </div>
+                            </div>
+                        </details>
+
+                        <details class="group bg-white rounded-sm shadow-sm border border-gray/20">
+                            <summary class="flex justify-between items-center font-bold cursor-pointer list-none p-5 text-mineral">
+                                <span>What should I have ready when I call?</span>
+                                <span class="transition group-open:rotate-180">
+                                    <i class="ph ph-caret-down"></i>
+                                </span>
+                            </summary>
+                            <div class="faq-answer text-charcoal/80">
+                                <div class="px-5 pb-5">
+                                    It helps to know exactly what the system is (or isn't) doing, where the equipment is located on your property, and your availability for a service visit.
+                                </div>
+                            </div>
+                        </details>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION L: CONTACT & CONVERSION -->
+        <section id="contact" class="bg-charcoal text-parchment py-24 relative overflow-hidden">
+            <div class="absolute inset-0 bg-mineral/20"></div>
+            <div class="max-w-[1200px] mx-auto px-4 md:px-8 relative z-10 grid lg:grid-cols-2 gap-16 items-start">
+                
+                <div>
+                    <h2 class="font-barlow font-bold text-4xl md:text-5xl uppercase mb-4">Let's get your home's comfort back on track.</h2>
+                    <p class="font-sans text-xl text-sage mb-8">Tell Thermal Service what is happening with your air-conditioning or heating system.</p>
+                    
+                    <div class="bg-mineral/50 border border-white/10 p-6 md:p-8 rounded-sm mb-8">
+                        <p class="font-sans text-sm text-sage uppercase tracking-wider mb-2">Direct Contact</p>
+                        <a href="tel:+12819910577" class="font-barlow font-bold text-4xl md:text-5xl text-rust hover:text-[#B35532] transition-colors flex items-center gap-3" onclick="markConverted()">
+                            <i class="ph-fill ph-phone-call"></i>
+                            (281) 991-0577
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Form Panel -->
+                <div class="bg-white text-charcoal p-6 md:p-8 rounded-sm shadow-xl">
+                    <h3 class="font-barlow font-bold text-3xl text-mineral uppercase mb-6">Request HVAC Service</h3>
+                    
+                    <!-- Simulated Form Submission state handling via JS -->
+                    <form id="service-form" class="space-y-4 font-sans" onsubmit="handleFormSubmit(event)">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="name" class="block text-sm font-bold text-mineral mb-1">Name *</label>
+                                <input type="text" id="name" required class="w-full bg-parchment border border-gray/30 rounded-sm px-4 py-2 focus:outline-none focus:border-rust focus:ring-1 focus:ring-rust transition-colors">
+                            </div>
+                            <div>
+                                <label for="phone" class="block text-sm font-bold text-mineral mb-1">Phone Number *</label>
+                                <input type="tel" id="phone" required class="w-full bg-parchment border border-gray/30 rounded-sm px-4 py-2 focus:outline-none focus:border-rust focus:ring-1 focus:ring-rust transition-colors">
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="service" class="block text-sm font-bold text-mineral mb-1">Service Category</label>
+                                <select id="service" class="w-full bg-parchment border border-gray/30 rounded-sm px-4 py-2 focus:outline-none focus:border-rust transition-colors">
+                                    <option>AC Repair</option>
+                                    <option>Heating Repair</option>
+                                    <option>System Replacement</option>
+                                    <option>Maintenance / Other</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="zip" class="block text-sm font-bold text-mineral mb-1">City or ZIP Code *</label>
+                                <input type="text" id="zip" required class="w-full bg-parchment border border-gray/30 rounded-sm px-4 py-2 focus:outline-none focus:border-rust transition-colors">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="details" class="block text-sm font-bold text-mineral mb-1">Briefly describe the issue</label>
+                            <textarea id="details" rows="3" class="w-full bg-parchment border border-gray/30 rounded-sm px-4 py-2 focus:outline-none focus:border-rust transition-colors resize-none"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-mineral hover:bg-[#162A29] text-white font-bold py-3 px-4 rounded-sm transition-colors mt-2">
+                            Send Request to Thermal Service
+                        </button>
+                        
+                        <p class="text-xs text-center text-gray mt-4">
+                            * Note: This form requires backend integration to process live requests. For immediate assistance, please call the number provided.
+                        </p>
+                    </form>
+
+                    <!-- Success State (Hidden initially) -->
+                    <div id="form-success" class="hidden text-center py-8">
+                        <div class="w-16 h-16 bg-sage/30 rounded-full flex items-center justify-center mx-auto mb-4 text-mineral">
+                            <i class="ph-bold ph-check text-3xl"></i>
+                        </div>
+                        <h4 class="font-barlow font-bold text-2xl text-mineral uppercase mb-2">Request Received</h4>
+                        <p class="font-sans text-charcoal/80">Thank you. We will review your request and contact you shortly.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- SECTION M: FOOTER -->
+    <footer class="bg-mineral text-sage py-12 md:py-16 border-t border-white/10">
+        <div class="max-w-[1200px] mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-3 gap-12">
+            
+            <!-- Brand & Info -->
+            <div>
+                <div class="flex items-center gap-1 mb-6 opacity-90">
+                    <span class="font-barlow font-bold text-2xl text-parchment uppercase">Thermal</span>
+                    <span class="font-sans text-xs tracking-[0.2em] uppercase">Service</span>
+                </div>
+                <p class="font-sans text-sm mb-6 max-w-xs leading-relaxed">
+                    Local air-conditioning and heating service, providing practical solutions and clear communication to homeowners.
+                </p>
+                <div class="font-sans text-sm space-y-2">
+                    <p>2707 Preston Ave</p>
+                    <p>Pasadena, TX 77503</p>
+                    <a href="tel:+12819910577" class="block text-parchment font-bold hover:text-rust transition-colors pt-2 text-lg">
+                        (281) 991-0577
+                    </a>
+                </div>
+            </div>
+
+            <!-- Links -->
+            <div>
+                <h4 class="font-barlow font-bold text-lg text-parchment uppercase mb-4 tracking-wide">Services</h4>
+                <ul class="font-sans text-sm space-y-3">
+                    <li><a href="#ac-repair" class="hover:text-parchment transition-colors">AC Repair</a></li>
+                    <li><a href="#heating" class="hover:text-parchment transition-colors">Heating Repair</a></li>
+                    <li><a href="#installation" class="hover:text-parchment transition-colors">System Installation</a></li>
+                    <li><a href="#maintenance" class="hover:text-parchment transition-colors">Maintenance</a></li>
+                </ul>
+            </div>
+
+            <!-- Legal/Secondary -->
+            <div>
+                <h4 class="font-barlow font-bold text-lg text-parchment uppercase mb-4 tracking-wide">Information</h4>
+                <ul class="font-sans text-sm space-y-3">
+                    <li><a href="#brand" class="hover:text-parchment transition-colors">About Us</a></li>
+                    <li><a href="#contact" class="hover:text-parchment transition-colors">Contact</a></li>
+                    <li>
+                        <a href="https://www.google.com/maps/place/Thermal+Service/@29.6681194,-95.1768459,15.75z/data=!4m6!3m5!1s0x864098919d255555:0xb053001f6263b39a!8m2!3d29.6716837!4d-95.1719987" target="_blank" rel="noopener noreferrer" class="hover:text-parchment transition-colors">
+                            Map & Directions
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="max-w-[1200px] mx-auto px-4 md:px-8 mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 font-sans text-xs text-gray">
+            <p>&copy; <span id="year"></span> Thermal Service. All rights reserved.</p>
+            <p>TX License: TACLB00019191E</p>
+        </div>
+    </footer>
+
+    <!-- 20-SECOND RECURRING CTA POPUP -->
+    <div id="cta-popup" class="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-50 w-[calc(100%-2rem)] md:w-96 bg-white border-t-4 border-rust shadow-2xl rounded-sm p-6 popup-hidden transition-all duration-500 ease-out-expo" role="dialog" aria-modal="false" aria-labelledby="popup-title">
+        <button id="close-popup" class="absolute top-4 right-4 text-gray hover:text-mineral transition-colors" aria-label="Close dialog">
+            <i class="ph-bold ph-x text-lg"></i>
+        </button>
+        
+        <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 bg-sage/30 rounded-full flex items-center justify-center text-mineral">
+                <i class="ph-fill ph-thermometer text-xl"></i>
+            </div>
+            <h3 id="popup-title" class="font-barlow font-bold text-2xl text-mineral uppercase leading-none mt-1">Having trouble with your A/C?</h3>
+        </div>
+        
+        <p class="font-sans text-sm text-charcoal/80 mb-5">Talk to Thermal Service about the problem and the next step.</p>
+        
+        <div class="flex flex-col gap-2">
+            <a href="tel:+12819910577" class="w-full bg-rust hover:bg-[#B35532] text-white font-sans font-bold py-3 px-4 rounded-sm transition-colors text-center shadow-sm" onclick="markConverted()">
+                Call (281) 991-0577
+            </a>
+            <a href="#contact" class="w-full bg-parchment hover:bg-sage/50 text-mineral border border-gray/30 font-sans font-semibold py-2.5 px-4 rounded-sm transition-colors text-center text-sm" onclick="markConverted(); document.getElementById('close-popup').click();">
+                Request Service Online
+            </a>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT INTERACTIONS -->
+    <script>
+        // Set current year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            const icon = mobileMenuBtn.querySelector('i');
+            if(mobileMenu.classList.contains('hidden')) {
+                icon.classList.remove('ph-x');
+                icon.classList.add('ph-list');
+            } else {
+                icon.classList.remove('ph-list');
+                icon.classList.add('ph-x');
+            }
+        });
+
+        // Close mobile menu on link click
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenuBtn.querySelector('i').classList.remove('ph-x');
+                mobileMenuBtn.querySelector('i').classList.add('ph-list');
+            });
+        });
+
+        // Form Submission Simulation
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const form = document.getElementById('service-form');
+            const successMsg = document.getElementById('form-success');
+            
+            // Mark as converted to stop popups
+            markConverted();
+            
+            // Hide form, show success
+            form.style.display = 'none';
+            successMsg.classList.remove('hidden');
+        }
+
+        // Popup Logic (20-second recurrence, max 3 times, stops on conversion)
+        const popup = document.getElementById('cta-popup');
+        const closeBtn = document.getElementById('close-popup');
+        
+        // Session state management
+        let popupCount = parseInt(sessionStorage.getItem('ts_popup_count') || '0');
+        let hasConverted = sessionStorage.getItem('ts_converted') === 'true';
+        let popupTimer;
+
+        function showPopup() {
+            // Check flags before showing
+            hasConverted = sessionStorage.getItem('ts_converted') === 'true';
+            if (hasConverted || popupCount >= 3) return;
+            
+            popup.classList.remove('popup-hidden');
+            popup.classList.add('popup-visible');
+            
+            popupCount++;
+            sessionStorage.setItem('ts_popup_count', popupCount.toString());
+        }
+
+        function hidePopup() {
+            popup.classList.remove('popup-visible');
+            popup.classList.add('popup-hidden');
+            
+            // Re-arm timer if rules permit
+            hasConverted = sessionStorage.getItem('ts_converted') === 'true';
+            if (!hasConverted && popupCount < 3) {
+                clearTimeout(popupTimer);
+                popupTimer = setTimeout(showPopup, 20000);
+            }
+        }
+
+        // Expose function globally to be called by CTA buttons
+        window.markConverted = function() {
+            sessionStorage.setItem('ts_converted', 'true');
+            hasConverted = true;
+            clearTimeout(popupTimer);
+            // Hide if currently open
+            popup.classList.remove('popup-visible');
+            popup.classList.add('popup-hidden');
+        };
+
+        closeBtn.addEventListener('click', hidePopup);
+
+        // Initial trigger setup
+        if (!hasConverted && popupCount < 3) {
+            // Wait 20 seconds after page load before first appearance
+            popupTimer = setTimeout(showPopup, 20000);
+        }
+    </script>
+</body>
+</html>
